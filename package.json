@@ -20,4 +20,9 @@
     "url": "https://github.com/sebekmsd/ca-cerveceria/issues"
   },
   "homepage": "https://github.com/sebekmsd/ca-cerveceria#readme"
+  ,
+  "dependencies":
+     { "omega_gpio" : ">=0.0.0",
+       "w1temp" : ">=0.0.0" }
+   
 }
