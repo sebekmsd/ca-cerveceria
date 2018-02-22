@@ -11,8 +11,26 @@ app.get('/', function (req, res) {
    res.send('{t: ' + temp + '}');
 })
 
+
+app.post('/start',function(req,res){
+
+  console.log(req);
+
+  response = { id : 'time',
+               state: 'OK'}
+  res.json(response);
+});
+
+
+
+
+
+
+//Set el pin 19 para la entrada del sensor de temperatura
 W1Temp.setGpioPower(19);
 
+
+/*
 W1Temp.getSensorsUids().then(function (sensorsUids) {     
   console.log(sensorsUids);         
                                                              
@@ -22,15 +40,14 @@ W1Temp.getSensorsUids().then(function (sensorsUids) {
         var t = sensor.getTemperature();                  
 //        console.log('Actual temp:', t, '..C');             
                                                      
-         // print actual temperature on changed  
         sensor.on('change', function(t){          
-//          console.log(t); 
+          //actualizar la temperatura global
            temp=t;                         
                                                      
         });                                                   
       });                                  
 }); 
-
+*/
 
 
 
