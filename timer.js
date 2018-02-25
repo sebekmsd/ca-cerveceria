@@ -8,6 +8,8 @@
 var Timer = function (interval){
     this._interval = interval;
     this._timeLeft = 0;
+    this._elapsedTime=0;
+    this._state = 'stopped';
 }
 
 Timer.prototype.timeLeft = function(){
@@ -38,17 +40,37 @@ Timer.prototype.programIntervals = function(intervalos,callback){
 }
 
 
-Timer.prototype.tick= function (callback){
-    //var intrvl = this._interval;
-    setInterval(function()   {
-         console.log(this.i);
-         if(this.i-- < 0){
-            callback();
-            this.unref();
-         }
-    }.bind({i : this._interval}),1000);
+Timer.prototype.getElapsedTime= function(){
+    return this._elapsedTime;
 }
 
+Timer.prototype.stop = function(){
+    clearInterval(this._intervalId);
+}
+
+Timer.prototype.state = function(){
+    return this._state;
+}
+
+Timer.prototype.countdown= function (callback){
+    //var intrvl = this._interval;
+    this._state = 'running';
+    this._intervalId = setInterval(function()   {
+        this.main._elapsedTime++ 
+
+        //console.log(this.main._interval);
+         if(this.main._interval-- <= 0){
+            callback();
+            this.main._state='stopped';
+            clearInterval(this.main._intervalId)
+         }
+    }.bind({ main : this }),1000);
+    //console.log('Interval id ' + this._intervalId);
+}
+
+Timer.prototype.interval=function(interval, callback){
+    setInterval(callback,interval)
+}
 
 module.exports = Timer
 
