@@ -22,6 +22,7 @@ var OmegaIFace = require('./io_iface.js');
 
 var control = new OmegaIFace(15,20,19);
 control.init();
+control.initRelay();
 
 timer = new Timer(10);
 
@@ -45,6 +46,12 @@ var processControl = () =>{
 pc = processControl();
 
 //console.log(pc);
+
+app.get('/shutdown',function(req,res){
+   control.shutdown();
+
+});
+
 
 app.get('/info', function (req, res) {
   t = timer.getElapsedTime();
@@ -109,7 +116,11 @@ app.post('/stop',function(req,res){
 });
 
 
-
+process.on('SIGINT', function() {
+    console.log("Caught interrupt signal");
+   control.destroyRelay();
+   process.exit();
+});
 
 var server = app.listen(8888, function () {
    var host = server.address().address

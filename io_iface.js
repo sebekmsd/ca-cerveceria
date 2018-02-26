@@ -9,6 +9,8 @@ var gpio = require("omega_gpio");
 
 global.temperature = 0;
 
+global.R1 = null;
+
 var OmegaIFace = function(t_min,t_max, t_io_pin){
   this._tmax = t_max;
   this._tmin = t_min;
@@ -22,17 +24,13 @@ var OmegaIFace = function(t_min,t_max, t_io_pin){
 console.log('Preparando dispositivo');
 
 OmegaIFace.prototype.init = () => {
+
     W1Temp.getSensorsUids().then(function (sensorsUids) {
         console.log(sensorsUids);
         W1Temp.getSensor(sensorsUids).then(function (sensor) {
 
-        // print actual temperature 
-//        var t = sensor.getTemperature();
-//        console.log('Actual temp:', t, '°C');
-
         // print actual temperature on changed 
         sensor.on('change', function(temp){
-//          console.log('T: ' + temp);
           temperature = temp;  
   
         });
@@ -44,13 +42,35 @@ OmegaIFace.prototype.temperature = ()=>{
 	return temperature;
 }
 
+
+OmegaIFace.prototype.initRelay=()=>{
+   console.log('iniciando sistema de relay');
+   var Relay = gpio.Relay;
+   R1 = new Relay(18);	
+   R1.off();
+   R1.on();
+}
+
+OmegaIFace.prototype.destroyRelay = ()=>{
+  if ( R1 != null && R1 != undefined ){ 
+     R1.destroy();
+  }
+}
+
+
+
 OmegaIFace.prototype.openRelay = (releId) => {
+  R1.on();
   console.log('Abriendo rele ' + releId);
 }
 
 OmegaIFace.prototype.closeRelay = (releId) => {
   console.log('cerrando rele');
+  R1.off();
 }
+
+
+
 
 OmegaIFace.prototype.status=()=>{
   status = {
