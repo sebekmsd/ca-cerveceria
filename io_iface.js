@@ -31,13 +31,16 @@ OmegaIFace.prototype.init = () => {
 
    // print actual temperature on changed 
         sensor.on('change', function(temp){
-          temp = t;  // checkTemperatura(temp);      
+          temperature t;  // checkTemperatura(temp);      
   
         });
       });
 });
 }
 
+OmegaIFace.prototype.temperature = ()=>{
+	return temperature;
+}
 
 OmegaIFace.prototype.openRelay = (releId) => {
   console.log('Abriendo rele ' + releId);
