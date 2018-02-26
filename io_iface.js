@@ -13,6 +13,7 @@ var OmegaIFace = function(t_min,t_max, t_io_pin){
   this._tmax = t_max;
   this._tmin = t_min;
   this._t_in = ( t_io_pin == null || t_io_pin == undefined ) ? 19 : t_io_pin ;
+  console.log('Estableciendo pin IO para sensor de temperatura en this._t_in');
   W1Temp.setGpioPower(t_io_pin);
 }
 
@@ -26,12 +27,13 @@ OmegaIFace.prototype.init = () => {
         W1Temp.getSensor(sensorsUids).then(function (sensor) {
 
         // print actual temperature 
-        var t = sensor.getTemperature();
-        //console.log('Actual temp:', temp, '°C');
+//        var t = sensor.getTemperature();
+//        console.log('Actual temp:', t, '°C');
 
-   // print actual temperature on changed 
+        // print actual temperature on changed 
         sensor.on('change', function(temp){
-          temperature t;  // checkTemperatura(temp);      
+//          console.log('T: ' + temp);
+          temperature = temp;  
   
         });
       });

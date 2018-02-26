@@ -36,7 +36,7 @@ var processControl = () =>{
 
   id = setInterval(function(arg){
     //check temperatura y control
-    console.log('Check');
+    //console.log('Check');
   },1000);
   return id;
 }
@@ -44,7 +44,7 @@ var processControl = () =>{
 //Incializar el control de la temperatura
 pc = processControl();
 
-console.log(pc);
+//console.log(pc);
 
 app.get('/info', function (req, res) {
   t = timer.getElapsedTime();
