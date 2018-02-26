@@ -21,7 +21,7 @@ var OmegaIFace = require('./io_iface.js');
 
 
 var control = new OmegaIFace(15,20,19);
-
+control.init();
 
 timer = new Timer(10);
 
@@ -49,13 +49,15 @@ console.log(pc);
 app.get('/info', function (req, res) {
   t = timer.getElapsedTime();
   console.log(t);
-   
+  
+  
   m =  Math.floor( t / 60);
   s = t % 60;
 
    info = { elpased_time: m + 'm : ' + s +'s',
     status: timer.state() , 
     program : 'simple',
+    temperature : control.temperature() ,
     io_info: control.status() };
 
    res.send(info);
