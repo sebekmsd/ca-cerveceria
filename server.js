@@ -20,7 +20,7 @@ var Timer = require('./timer.js');
 var OmegaIFace = require('./io_iface.js');
 
 
-var control = new OmegaIFace(15,20,19);
+var control = new OmegaIFace(15,20,11);
 control.init();
 control.initRelay();
 
