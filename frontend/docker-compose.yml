@@ -2,9 +2,10 @@ version: "3.0"
 
 services:
   php:
-    tty: true
-    image: "php:7.0-apache"
+    image: "node"
     volumes:
-      - ./src:/var/www/html
+      - ./autcontrol:/autcontrol
+    command: [ "cd autcontrol; npm install; npm start" ] 
     ports:
-      - 80:80
+      - 80:3000
+
