@@ -1,0 +1,11 @@
+version: "3.0"
+
+services:
+  php:
+    image: "node"
+    volumes:
+      - ./autcontrol:/autcontrol
+    command: [ "cd autcontrol; npm install; npm start" ] 
+    ports:
+      - 80:3000
+
