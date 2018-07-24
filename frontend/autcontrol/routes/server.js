@@ -1,11 +1,9 @@
 // Paramtros por defecto
 
 var t_min, t_max = 0;
-
-
-var express = require("express"),  
+var express = require("express");
 //    app = express(),
-    bodyParser  = require("body-parser")
+//    bodyParser  = require("body-parser")
  //   methodOverride = require("method-override");
 
 
@@ -14,14 +12,14 @@ var express = require("express"),
 
 var router = express.Router();
 
-
 var Timer = require('./timer.js');
 var OmegaIFace = require('./io_iface.js');
-
 
 var control = new OmegaIFace(15,20,19);
 control.init();
 control.initRelay();
+
+console.log('IO Face inicializado');
 
 timer = new Timer(10);
 
