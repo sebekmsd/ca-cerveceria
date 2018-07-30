@@ -3,8 +3,7 @@ console.log('*** inicializando aplicacion');
 var tempMax = ( process.env.MAX_TEMP != null ) ? process.env.MAX_TEMP : 20 ;
 var tempMin = ( process.env.MIN_TEMP != null ) ? process.env.MIN_TEMP : 15 ;
 
-
-var relay_pins = [18,0 , 1 , 6 , 7 ];
+var relay_pins = [  0 ,1 , 7  ];
 
 const MAX_NUM_RELAY = 3;
 
@@ -59,7 +58,7 @@ OmegaIFace.prototype.initRelay=(num_relay)=>{
   for( i = 0 ;  i < num_relay && i < MAX_NUM_RELAY ; i++ ){
     console.log('Configurando pin ' + relay_pins[i]);
     relays.push(gpio.Relay);
-    relays[i] = new Relay(relay_pins[i]);
+    relays[i] = new gpio.Relay(relay_pins[i]);
     relays[i].off();
     relays[i].on();
   }
@@ -79,7 +78,6 @@ OmegaIFace.prototype.destroyRelay = ()=>{
 
 
 OmegaIFace.prototype.openRelay = (releId) => {
-  console.log(releId);
   if( releId >= relays.length ){
     throw new Exception('El identificador no existe');
   }
@@ -95,16 +93,14 @@ OmegaIFace.prototype.closeRelay = (releId) => {
   console.log('Abriendo rele ' + releId);
 }
 
-
-
-
 OmegaIFace.prototype.status=()=>{
-  status = 
-  [ 
-    { "name" : "r1", "state" : "close" },
-    { "name" : "r2", "state" : "close" },
-    { "name" : "r3", "state" : "close" }
-  ]
+  var status = Array();
+  var i = 1; 
+  relays.forEach(function(rele){
+     console.log(rele.status())
+     status.push( { "name" : "r" + i++,             
+           "state" : ( true ) ? "open" : "close"  });   
+  }); 
   return status;
 }
 

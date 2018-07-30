@@ -2,17 +2,14 @@ extends layout
 
 block content
   h5= "Control Automático (v0.1)"
-  script.
-     function controlRele(src){
-        
-        var form1 = document.forms[0];
-     }
+  script(type='text/javascript',src='/javascripts/relay.js')
+   
+
   .container
      .main-content
-      form#controlPanel(name="control",method="post",action="/relay")
-          label(for="temperatura") Temp:
-          input(type="text",name="temperatura",value="0º")
-          for item in rele
-            p
-            button#submit(onclick="controlRele(this)", name="#{item.name}",class="#{item.state}") Rele #{item.name} #{item.state}
-            input(type="hidden",name="#{item.name}",id="#{item.name}",value="#{item.state}")
+       label(for="temperatura") Temp:
+       input(type="text",id="temperatura",name="temperatura",value="0º")
+       for item in rele
+         p
+         button( onclick="controlRele(this)",name="ctl", id="#{item.name}",class="#{item.state}") Rele #{item.name} #{item.state}
+
